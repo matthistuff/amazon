@@ -19,7 +19,7 @@ func Search(c *cli.Context) {
 
 	params := map[string]string{
 		"Keywords":      search,
-		"ResponseGroup": "ItemAttributes,Small,EditorialReview,Offers,BrowseNodes",
+		"ResponseGroup": "ItemAttributes,Small,EditorialReview,OfferSummary,BrowseNodes",
 		"ItemPage":      strconv.FormatInt(int64(page), 10),
 	}
 	result, err := api.ItemSearch("All", params)
@@ -36,7 +36,9 @@ func Search(c *cli.Context) {
 		price := item.ItemAttributes.ListPrice.FormattedPrice
 
 		if price == "" {
-			price = fmt.Sprintf("from %s", item.OfferSummary.LowestNewPrice.FormattedPrice)
+			if lowestNew := item.OfferSummary.LowestNewPrice; lowestNew.Amount != 0 {
+				price = fmt.Sprintf("%s (new)", lowestNew.FormattedPrice)
+			}
 		}
 
 		normalizedIndex := index + 1
