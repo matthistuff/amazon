@@ -1,7 +1,7 @@
 package api
 
 import (
-	"github.com/DDRBoxman/go-amazon-product-api"
+	"github.com/matthistuff/go-amazon-product-api"
 	"os"
 	"github.com/matthistuff/amazon/config"
 	"strings"
