@@ -26,6 +26,10 @@ func main() {
 			Usage: "Amazon locale",
 			EnvVar: "AMAZON_LOCALE",
 		},
+		cli.BoolFlag{
+			Name: "no-color",
+			Usage: "disable colored output",
+		},
 	}
 
 	app.Commands = []cli.Command{

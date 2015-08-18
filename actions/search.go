@@ -7,9 +7,12 @@ import (
 	"github.com/matthistuff/amazon/api"
 	"strconv"
 	"github.com/matthistuff/amazon/config"
+	"github.com/matthistuff/amazon/color"
 )
 
 func Search(c *cli.Context) {
+	color.Allow(c)
+
 	search := strings.Replace(strings.Join(c.Args(), "+"), " ", "+", -1)
 	page := c.Int("page")
 	api := api.Create(c.GlobalString("locale"))
@@ -29,7 +32,7 @@ func Search(c *cli.Context) {
 		return
 	}
 
-	fmt.Printf("---\nFound %d results matching query '%s'\n---\n", result.Items.TotalResults, search)
+	fmt.Printf("---\nFound %d results matching query %s\n---\n", result.Items.TotalResults, color.Header("'%s'", search))
 
 	cache := make(map[string]string)
 	for index, item := range result.Items.ItemList {
@@ -43,7 +46,7 @@ func Search(c *cli.Context) {
 
 		normalizedIndex := index + 1
 		cache[strconv.Itoa(normalizedIndex)] = item.ASIN
-		fmt.Printf("(%2d) %-45.45s %18s [%s]\n", normalizedIndex, item.ItemAttributes.Title, price, item.ItemAttributes.Binding)
+		fmt.Printf("(%s) %-45.45s %18s [%s]\n", color.ShortId("%2d", normalizedIndex), item.ItemAttributes.Title, color.Bold(price), item.ItemAttributes.Binding)
 	}
 	conf.ResultCache["Search"] = cache
 
