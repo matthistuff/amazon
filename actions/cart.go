@@ -81,7 +81,7 @@ func CartInfo(c *cli.Context) {
 		index := 1
 		cache := make(map[string]string)
 		for _, item := range getResponse.Cart.CartItems.CartItemList {
-			fmt.Printf("(%s) %-45.45s %18s [Quantity %d]\n",
+			fmt.Printf("(%s) %-45.45s %18s × %d\n",
 				color.ShortId(strconv.Itoa(index)),
 				item.Title,
 				item.ItemTotal.FormattedPrice,
