@@ -35,7 +35,6 @@ func main() {
 	app.Commands = []cli.Command{
 		{
 			Name: "search",
-			Aliases: []string{"s"},
 			Usage: "search for products",
 			Action: actions.Search,
 			Flags: []cli.Flag{
@@ -48,19 +47,16 @@ func main() {
 		},
 		{
 			Name: "info",
-			Aliases: []string{"s"},
 			Usage: "get product info",
 			Action: actions.Info,
 		},
 		{
 			Name: "open",
-			Aliases: []string{"o"},
 			Usage: "open product in browser",
 			Action: actions.Open,
 		},
 		{
 			Name: "cart",
-			Aliases: []string{"c"},
 			Usage: "manage a cart",
 			Flags: []cli.Flag{
 				cli.StringFlag{
@@ -105,7 +101,6 @@ func main() {
 		},
 		{
 			Name: "locale",
-			Aliases: []string{"l"},
 			Usage: "manage locale",
 			Subcommands: []cli.Command{
 				{
