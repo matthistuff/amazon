@@ -9,6 +9,7 @@ import (
 	"os"
 	"strconv"
 	"strings"
+	"github.com/matthistuff/amazon/color"
 )
 
 func CartAdd(c *cli.Context) {
@@ -54,6 +55,8 @@ func CartAdd(c *cli.Context) {
 }
 
 func CartInfo(c *cli.Context) {
+	color.Allow(c)
+
 	cartName := c.GlobalString("name")
 	api := api.Create(c.GlobalString("locale"))
 
@@ -66,7 +69,7 @@ func CartInfo(c *cli.Context) {
 		fmt.Fprintf(os.Stderr, "Cart %s is unknown\n", cartName)
 		os.Exit(1)
 	} else {
-		fmt.Printf("---\nCart %s\n---\n", cart.Name)
+		fmt.Printf("---\nCart %s\n---\n", color.Header(cart.Name))
 
 		getResponse, getErr := api.CartGet(cart.CartId, cart.HMAC)
 
@@ -78,7 +81,11 @@ func CartInfo(c *cli.Context) {
 		index := 1
 		cache := make(map[string]string)
 		for _, item := range getResponse.Cart.CartItems.CartItemList {
-			fmt.Printf("(%d) %-45.45s %18s [Quantity %d]\n", index, item.Title, item.ItemTotal.FormattedPrice, item.Quantity)
+			fmt.Printf("(%s) %-45.45s %18s [Quantity %d]\n",
+				color.ShortId(strconv.Itoa(index)),
+				item.Title,
+				item.ItemTotal.FormattedPrice,
+				item.Quantity)
 			cache[strconv.Itoa(index)] = item.CartItemId
 			index += 1
 		}
@@ -87,7 +94,7 @@ func CartInfo(c *cli.Context) {
 		if len(getResponse.Cart.CartItems.CartItemList) == 0 {
 			fmt.Println("Cart is empty")
 		} else {
-			fmt.Printf("---\nSubtotal %s\n---\n", getResponse.Cart.SubTotal.FormattedPrice)
+			fmt.Printf("---\nSubtotal %s\n---\n", color.Bold(getResponse.Cart.SubTotal.FormattedPrice))
 		}
 	}
 }
