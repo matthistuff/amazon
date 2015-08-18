@@ -1,4 +1,5 @@
-package helpers
+package helper
+
 import (
 	"regexp"
 )

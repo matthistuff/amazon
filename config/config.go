@@ -5,7 +5,7 @@ import (
 	"path"
 	"os"
 	"github.com/BurntSushi/toml"
-	"github.com/matthistuff/amazon/helpers"
+	"github.com/matthistuff/amazon/helper"
 	"time"
 )
 
@@ -37,7 +37,7 @@ func (c Config) FromCache(cache string, key string) string {
 }
 
 func (c Config) ASINFromCache(cache string, item string) string {
-	if helpers.IsASIN(item) {
+	if helper.IsASIN(item) {
 		return item
 	}
 
@@ -45,7 +45,7 @@ func (c Config) ASINFromCache(cache string, item string) string {
 }
 
 func (c Config) NumericFromCache(cache string, index string) string {
-	if helpers.IsNumeric(index) {
+	if helper.IsNumeric(index) {
 		return c.FromCache(cache, index)
 	}
 
