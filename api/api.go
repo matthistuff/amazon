@@ -93,7 +93,7 @@ func (a API) CartCreate(Items map[string]int) (data.CartCreateResponse, error) {
 func (a API) CartAdd(CartId, HMAC string, Items map[string]int) (data.CartAddResponse, error) {
 	var cartAddResult data.CartAddResponse
 
-	response, err := a.ProductAPI.CartAdd(CartId, HMAC, Items)
+	response, err := a.ProductAPI.CartAdd(Items, CartId, HMAC)
 
 	if err != nil {
 		return cartAddResult, err
