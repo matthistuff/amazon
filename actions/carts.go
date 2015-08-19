@@ -9,10 +9,10 @@ import (
 )
 
 func CartsDestroy(c *cli.Context) {
-	cartName := c.Args().First()
-
 	conf := config.GetConfig()
 	defer conf.Flush()
+
+	cartName := conf.CartNameFromCache(c.Args().First())
 
 	if cart, exists := conf.Carts[cartName]; exists {
 		delete(conf.Carts, cartName)

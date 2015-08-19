@@ -32,13 +32,35 @@ func (c *Config) Flush() {
 	}
 }
 
-func (c Config) FromCache(cache string, key string) string {
-	return c.ResultCache[cache][key]
+func (c Config) FromCache(cache string, key string) (string, bool) {
+	cached, exists := c.ResultCache[cache]
+
+	if !exists {
+		return "", exists
+	}
+
+	cachedValue, exists := cached[key]
+
+	return cachedValue, exists
 }
 
-func (c Config) ASINFromCache(cache string, item string) string {
+func (c Config) CartNameFromCache(indexOrName string) string {
+	cached, exists := c.FromCache("Carts", indexOrName)
+
+	if !exists {
+		if indexOrName == "" {
+			return "default"
+		}
+
+		return indexOrName
+	}
+
+	return cached
+}
+
+func (c Config) ASINFromCache(cache string, item string) (string, bool) {
 	if helper.IsASIN(item) {
-		return item
+		return item, true
 	}
 
 	return c.FromCache(cache, item)
@@ -46,7 +68,11 @@ func (c Config) ASINFromCache(cache string, item string) string {
 
 func (c Config) NumericFromCache(cache string, index string) string {
 	if helper.IsNumeric(index) {
-		return c.FromCache(cache, index)
+		value, exists := c.FromCache(cache, index)
+
+		if exists {
+			return value
+		}
 	}
 
 	return index

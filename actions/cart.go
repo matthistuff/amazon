@@ -13,14 +13,18 @@ import (
 )
 
 func CartAdd(c *cli.Context) {
-	cartName := c.GlobalString("name")
 	api := api.Create(c.GlobalString("locale"))
 
 	conf := config.GetConfig()
 	defer conf.Flush()
 
-	asin := conf.ASINFromCache("Products", c.Args().First())
+	asin, exists := conf.ASINFromCache("Products", c.Args().First())
+	if !exists {
+		fmt.Errorf("Cannot look up ASIN")
+		os.Exit(1)
+	}
 
+	cartName := conf.CartNameFromCache(c.Args().Get(1))
 
 	if cart, exists := conf.Carts[cartName]; !exists {
 		createResponse, createErr := api.CartCreate(map[string]int{
@@ -63,7 +67,7 @@ func CartInfo(c *cli.Context) {
 	conf := config.GetConfig()
 	defer conf.Flush()
 
-	cartName = conf.NumericFromCache("Carts", cartName)
+	cartName = conf.CartNameFromCache(c.Args().First())
 
 	if cart, exists := conf.Carts[cartName]; !exists {
 		fmt.Fprintf(os.Stderr, "Cart %s is unknown\n", cartName)

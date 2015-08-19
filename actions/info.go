@@ -7,13 +7,18 @@ import (
 	"github.com/matthistuff/amazon/data"
 	"encoding/xml"
 	"fmt"
+	"os"
 )
 
 func Info(c *cli.Context) {
 	api := api.Create(c.GlobalString("locale"))
 	index := c.Args().First()
 	config := config.GetConfig()
-	asin := config.ASINFromCache("Products", index)
+	asin, exists := config.ASINFromCache("Products", index)
+	if !exists {
+		fmt.Errorf("Cannot look up ASIN")
+		os.Exit(1)
+	}
 
 	result, err := api.ProductAPI.ItemLookup(asin)
 	if err != nil {

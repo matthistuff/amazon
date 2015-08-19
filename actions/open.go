@@ -5,13 +5,19 @@ import (
 	"github.com/matthistuff/amazon/config"
 	"github.com/matthistuff/amazon/api"
 	"github.com/pkg/browser"
+	"fmt"
+	"os"
 )
 
 func Open(c *cli.Context) {
 	api := api.Create(c.GlobalString("locale"))
 
 	conf := config.GetConfig()
-	asin := conf.ASINFromCache("Products", c.Args().First())
+	asin, exists := conf.ASINFromCache("Products", c.Args().First())
+	if !exists {
+		fmt.Errorf("Cannot look up ASIN")
+		os.Exit(1)
+	}
 
 	result, err := api.ItemLookup(asin)
 

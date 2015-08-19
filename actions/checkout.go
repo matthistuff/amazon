@@ -9,15 +9,12 @@ import (
 )
 
 func Checkout(c *cli.Context) {
-	cartName := c.Args().First()
-	if cartName == "" {
-		cartName = "default"
-	}
-
 	api := api.Create(c.GlobalString("locale"))
 
 	conf := config.GetConfig()
 	defer conf.Flush()
+
+	cartName := conf.CartNameFromCache(c.Args().First())
 
 	if cart, exists := conf.Carts[cartName]; exists {
 		if getResponse, getErr := api.CartGet(cart.CartId, cart.HMAC); getErr == nil {

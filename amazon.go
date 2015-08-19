@@ -58,13 +58,6 @@ func main() {
 		{
 			Name: "cart",
 			Usage: "manage a cart",
-			Flags: []cli.Flag{
-				cli.StringFlag{
-					Name: "name, n",
-					Value: "default",
-					Usage: "Named cart",
-				},
-			},
 			Subcommands: []cli.Command{
 				{
 					Name: "add",
