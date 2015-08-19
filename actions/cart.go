@@ -20,7 +20,7 @@ func CartAdd(c *cli.Context) {
 
 	asin, exists := conf.ASINFromCache("Products", c.Args().First())
 	if !exists {
-		fmt.Errorf("Cannot look up ASIN")
+		fmt.Fprintln(os.Stderr, "Cannot look up ASIN")
 		os.Exit(1)
 	}
 
@@ -34,6 +34,14 @@ func CartAdd(c *cli.Context) {
 		if createErr != nil {
 			panic(createErr)
 			return
+		}
+
+		if len(createResponse.Cart.Request.Errors.ErrorList) > 0 {
+			for _, err := range createResponse.Cart.Request.Errors.ErrorList {
+				fmt.Fprintf(os.Stderr, "%s\n", err.Message)
+			}
+
+			os.Exit(1)
 		}
 
 		conf.Carts[cartName] = &config.Cart{
@@ -50,6 +58,15 @@ func CartAdd(c *cli.Context) {
 		if addErr != nil {
 			panic(addErr)
 			return
+		}
+
+
+		if len(addResponse.Cart.Request.Errors.ErrorList) > 0 {
+			for _, err := range addResponse.Cart.Request.Errors.ErrorList {
+				fmt.Fprintf(os.Stderr, "%s\n", err.Message)
+			}
+
+			os.Exit(1)
 		}
 
 		conf.Carts[cartName].HMAC = addResponse.Cart.HMAC

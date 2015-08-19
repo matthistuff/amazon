@@ -16,7 +16,7 @@ func Info(c *cli.Context) {
 	config := config.GetConfig()
 	asin, exists := config.ASINFromCache("Products", index)
 	if !exists {
-		fmt.Errorf("Cannot look up ASIN")
+		fmt.Fprintln(os.Stderr, "Cannot look up ASIN")
 		os.Exit(1)
 	}
 
