@@ -41,6 +41,10 @@ func Search(c *cli.Context) {
 		if price == "" {
 			if lowestNew := item.OfferSummary.LowestNewPrice; lowestNew.Amount != 0 {
 				price = fmt.Sprintf("%s (new)", lowestNew.FormattedPrice)
+			} else if lowestUsed := item.OfferSummary.LowestUsedPrice; lowestUsed.Amount != 0 {
+				price = fmt.Sprintf("%s (used)", lowestUsed.FormattedPrice)
+			} else {
+				price = "n/a"
 			}
 		}
 
