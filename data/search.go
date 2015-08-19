@@ -5,15 +5,10 @@ type ItemSearchResponse struct {
 }
 
 type SearchItems struct {
-	Request      SearchRequest
+	Request      Request
 	TotalResults int
 	TotalPages   int
 	ItemList     []Item `xml:"Item"`
-}
-
-type SearchRequest struct {
-	IsValid           bool
-	ItemSearchRequest ItemSearchRequest
 }
 
 type ItemSearchRequest struct {

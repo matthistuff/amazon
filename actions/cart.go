@@ -36,14 +36,6 @@ func CartAdd(c *cli.Context) {
 			return
 		}
 
-		if len(createResponse.Cart.Request.Errors.ErrorList) > 0 {
-			for _, err := range createResponse.Cart.Request.Errors.ErrorList {
-				fmt.Fprintf(os.Stderr, "%s\n", err.Message)
-			}
-
-			os.Exit(1)
-		}
-
 		conf.Carts[cartName] = &config.Cart{
 			Name: cartName,
 			Created: time.Now(),
@@ -58,15 +50,6 @@ func CartAdd(c *cli.Context) {
 		if addErr != nil {
 			panic(addErr)
 			return
-		}
-
-
-		if len(addResponse.Cart.Request.Errors.ErrorList) > 0 {
-			for _, err := range addResponse.Cart.Request.Errors.ErrorList {
-				fmt.Fprintf(os.Stderr, "%s\n", err.Message)
-			}
-
-			os.Exit(1)
 		}
 
 		conf.Carts[cartName].HMAC = addResponse.Cart.HMAC

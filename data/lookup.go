@@ -5,10 +5,6 @@ type ItemLookupResponse struct {
 }
 
 type LookupItems struct {
-	Request  LookupRequest
+	Request  Request
 	ItemList []Item `xml:"Item"`
-}
-
-type LookupRequest struct {
-	IsValid bool
 }

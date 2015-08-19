@@ -7,6 +7,7 @@ import (
 	"strings"
 	"github.com/matthistuff/amazon/data"
 	"encoding/xml"
+	"fmt"
 )
 
 var hosts = map[string]string{
@@ -27,6 +28,16 @@ type API struct {
 	ProductAPI *amazonproduct.AmazonProductAPI
 }
 
+func (a API) checkSanity(request data.Request) {
+	if len(request.Errors.ErrorList) > 0 {
+		for _, err := range request.Errors.ErrorList {
+			fmt.Fprintf(os.Stderr, "%s\n", err.Message)
+		}
+
+		os.Exit(1)
+	}
+}
+
 func (a API) ItemLookup(ASIN string) (data.ItemLookupResponse, error) {
 	var lookupResult data.ItemLookupResponse
 
@@ -38,6 +49,8 @@ func (a API) ItemLookup(ASIN string) (data.ItemLookupResponse, error) {
 	if err := xml.Unmarshal([]byte(response), &lookupResult); err != nil {
 		return lookupResult, err
 	}
+
+	a.checkSanity(lookupResult.Items.Request)
 
 	return lookupResult, nil
 }
@@ -55,6 +68,8 @@ func (a API) ItemSearch(SearchIndex string, Parameters map[string]string) (data.
 		return searchResult, err
 	}
 
+	a.checkSanity(searchResult.Items.Request)
+
 	return searchResult, nil
 }
 
@@ -70,6 +85,8 @@ func (a API) CartGet(CartId, HMAC string) (data.CartGetResponse, error) {
 	if err := xml.Unmarshal([]byte(response), &cartGetResult); err != nil {
 		return cartGetResult, err
 	}
+
+	a.checkSanity(cartGetResult.Cart.Request)
 
 	return cartGetResult, nil
 }
@@ -87,6 +104,8 @@ func (a API) CartCreate(Items map[string]int) (data.CartCreateResponse, error) {
 		return cartCreateResult, err
 	}
 
+	a.checkSanity(cartCreateResult.Cart.Request)
+
 	return cartCreateResult, nil
 }
 
@@ -102,6 +121,8 @@ func (a API) CartAdd(CartId, HMAC string, Items map[string]int) (data.CartAddRes
 	if err := xml.Unmarshal([]byte(response), &cartAddResult); err != nil {
 		return cartAddResult, err
 	}
+
+	a.checkSanity(cartAddResult.Cart.Request)
 
 	return cartAddResult, nil
 }
