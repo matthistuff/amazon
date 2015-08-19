@@ -48,9 +48,20 @@ func Search(c *cli.Context) {
 			}
 		}
 
+		year := item.ItemAttributes.PublicationDate
+		if year == "" {
+			year = item.ItemAttributes.ReleaseDate
+		}
+
+
 		normalizedIndex := index + 1
 		cache[strconv.Itoa(normalizedIndex)] = item.ASIN
-		fmt.Printf("(%s) %-45.45s %18s [%s]\n", color.ShortId("%2d", normalizedIndex), item.ItemAttributes.Title, color.Bold(price), item.ItemAttributes.Binding)
+		fmt.Printf("(%s) %-45.45s (%4s) %18s [%s]\n",
+			color.ShortId("%2d", normalizedIndex),
+			item.ItemAttributes.Title,
+			year[0:4],
+			color.Bold(price),
+			item.ItemAttributes.Binding)
 	}
 	conf.ResultCache["Products"] = cache
 
