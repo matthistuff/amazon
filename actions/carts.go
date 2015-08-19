@@ -35,5 +35,5 @@ func CartsList(c *cli.Context) {
 		cache[strconv.Itoa(index)] = cart.Name
 		index +=1
 	}
-	conf.ResultCache["CartsList"] = cache
+	conf.ResultCache["Carts"] = cache
 }

@@ -11,7 +11,7 @@ func Open(c *cli.Context) {
 	api := api.Create(c.GlobalString("locale"))
 
 	conf := config.GetConfig()
-	asin := conf.ASINFromCache("Search", c.Args().First())
+	asin := conf.ASINFromCache("Products", c.Args().First())
 
 	result, err := api.ItemLookup(asin)
 

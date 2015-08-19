@@ -13,7 +13,7 @@ func Info(c *cli.Context) {
 	api := api.Create(c.GlobalString("locale"))
 	index := c.Args().First()
 	config := config.GetConfig()
-	asin := config.ASINFromCache("Search", index)
+	asin := config.ASINFromCache("Products", index)
 
 	result, err := api.ProductAPI.ItemLookup(asin)
 	if err != nil {

@@ -48,7 +48,7 @@ func Search(c *cli.Context) {
 		cache[strconv.Itoa(normalizedIndex)] = item.ASIN
 		fmt.Printf("(%s) %-45.45s %18s [%s]\n", color.ShortId("%2d", normalizedIndex), item.ItemAttributes.Title, color.Bold(price), item.ItemAttributes.Binding)
 	}
-	conf.ResultCache["Search"] = cache
+	conf.ResultCache["Products"] = cache
 
 	fmt.Printf("---\nPage %d of %d\n---\n", page, result.Items.TotalPages)
 }

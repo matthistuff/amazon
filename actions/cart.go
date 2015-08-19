@@ -19,7 +19,7 @@ func CartAdd(c *cli.Context) {
 	conf := config.GetConfig()
 	defer conf.Flush()
 
-	asin := conf.ASINFromCache("Search", c.Args().First())
+	asin := conf.ASINFromCache("Products", c.Args().First())
 
 
 	if cart, exists := conf.Carts[cartName]; !exists {
@@ -63,7 +63,7 @@ func CartInfo(c *cli.Context) {
 	conf := config.GetConfig()
 	defer conf.Flush()
 
-	cartName = conf.NumericFromCache("CartsList", cartName)
+	cartName = conf.NumericFromCache("Carts", cartName)
 
 	if cart, exists := conf.Carts[cartName]; !exists {
 		fmt.Fprintf(os.Stderr, "Cart %s is unknown\n", cartName)
@@ -89,7 +89,7 @@ func CartInfo(c *cli.Context) {
 			cache[strconv.Itoa(index)] = item.CartItemId
 			index += 1
 		}
-		conf.ResultCache["Cart" + strings.Title(cartName) + "Info"] = cache
+		conf.ResultCache["Cart" + strings.Title(cartName) + "Items"] = cache
 
 		if len(getResponse.Cart.CartItems.CartItemList) == 0 {
 			fmt.Println("Cart is empty")
