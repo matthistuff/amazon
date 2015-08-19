@@ -6,6 +6,7 @@ import (
 	"github.com/matthistuff/amazon/config"
 	"strconv"
 	"os"
+	"github.com/matthistuff/amazon/color"
 )
 
 func CartsDestroy(c *cli.Context) {
@@ -25,15 +26,17 @@ func CartsDestroy(c *cli.Context) {
 }
 
 func CartsList(c *cli.Context) {
+	color.Allow(c)
+
 	conf := config.GetConfig()
 	defer conf.Flush()
 
 	index := 1
 	cache := make(map[string]string)
 	for _, cart := range conf.Carts {
-		fmt.Printf("(%d) %s\n", index, cart.Name)
+		fmt.Printf("(%s) %s\n", color.ShortId(strconv.Itoa(index)), cart.Name)
 		cache[strconv.Itoa(index)] = cart.Name
-		index +=1
+		index += 1
 	}
 	conf.ResultCache["Carts"] = cache
 }
