@@ -54,6 +54,10 @@ func main() {
 					Value: "All",
 					Usage: "search index",
 				},
+				cli.BoolFlag{
+					Name: "no-rating",
+					Usage: "disable fetching product ratings",
+				},
 			},
 		},
 		{

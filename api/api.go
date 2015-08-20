@@ -26,6 +26,7 @@ var hosts = map[string]string{
 
 type API struct {
 	ProductAPI *amazonproduct.AmazonProductAPI
+	Locale     string
 }
 
 func (a API) checkSanity(request data.Request) {
@@ -159,6 +160,7 @@ func Create(locale string) API {
 			Host: hosts[strings.ToUpper(locale)],
 			AssociateTag: "matthi-20",
 		},
+		Locale: locale,
 	}
 }
 

@@ -9,6 +9,7 @@ import (
 	"github.com/matthistuff/amazon/config"
 	"github.com/matthistuff/amazon/color"
 	"math"
+	"github.com/matthistuff/amazon/helper"
 )
 
 func Search(c *cli.Context) {
@@ -62,13 +63,25 @@ func Search(c *cli.Context) {
 			year = fmt.Sprintf(" (%4.4s)", year)
 		}
 
+		ratingFormatted := ""
+		if !c.Bool("no-rating") {
+			rating, err := helper.Rating(item.ASIN, api.Locale)
+			if err != nil {
+				panic(err)
+				return
+			}
+
+			ratingFormatted = fmt.Sprintf("%-5s ", helper.FormatRating(rating))
+		}
+
 		normalizedIndex := index + 1
 		cache[strconv.Itoa(normalizedIndex)] = item.ASIN
 
 		maxLen := math.Min(float64(52 - len(year)), float64(len(item.ItemAttributes.Title)))
-		fmt.Printf("(%s) %-52s %s [%s]\n",
+		fmt.Printf("(%s) %-52s %s%s [%s]\n",
 			color.ShortId("%2d", normalizedIndex),
 			fmt.Sprintf("%s%s", item.ItemAttributes.Title[:int(maxLen)], year),
+			color.Faint(ratingFormatted),
 			color.Bold("%9s", price),
 			item.ItemAttributes.Binding)
 	}
