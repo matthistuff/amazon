@@ -9,7 +9,7 @@ var (
 	Bold = color.New(color.Bold).SprintfFunc()
 	Faint = color.New(color.Faint).SprintfFunc()
 	Header = color.New(color.FgRed, color.Bold).SprintfFunc()
-	ShortId = color.New(color.FgBlue, color.Bold).SprintfFunc()
+	ShortId = color.New(color.FgBlue).SprintfFunc()
 )
 
 func Allow(c *cli.Context) {
