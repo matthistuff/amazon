@@ -146,7 +146,7 @@ func CartInfo(c *cli.Context) {
 		fmt.Fprintf(os.Stderr, "Cart %s is unknown\n", cartName)
 		os.Exit(1)
 	} else {
-		fmt.Printf("---\nCart %s\n---\n", color.Header(cart.Name))
+		fmt.Printf("\nCart %s\n\n", color.Header(cart.Name))
 
 		getResponse, getErr := api.CartGet(cart.CartId, cart.HMAC)
 
@@ -158,7 +158,7 @@ func CartInfo(c *cli.Context) {
 		index := 1
 		cache := make(map[string]string)
 		for _, item := range getResponse.Cart.CartItems.CartItemList {
-			fmt.Printf("(%s) %-45.45s %18s × %d\n",
+			fmt.Printf("(%s) %-45.45s %9s [×%d]\n",
 				color.ShortId(strconv.Itoa(index)),
 				item.Title,
 				item.ItemTotal.FormattedPrice,
@@ -171,7 +171,7 @@ func CartInfo(c *cli.Context) {
 		if len(getResponse.Cart.CartItems.CartItemList) == 0 {
 			fmt.Println("Cart is empty")
 		} else {
-			fmt.Printf("---\nSubtotal %s\n---\n", color.Bold(getResponse.Cart.SubTotal.FormattedPrice))
+			fmt.Printf("\nSubtotal %s\n\n", color.Bold(getResponse.Cart.SubTotal.FormattedPrice))
 		}
 	}
 }
