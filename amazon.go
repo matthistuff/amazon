@@ -17,14 +17,15 @@ func main() {
 	app := cli.NewApp()
 	app.EnableBashCompletion = true
 	app.Name = "amazon"
-	app.Usage = "CLI interface to amazon.*"
+	app.Usage = "the CLI interface to amazon"
+	app.Version = "0.1.0"
 
 	app.Flags = []cli.Flag{
 		cli.StringFlag{
 			Name: "locale, l",
 			Value: "",
 			Usage: "Amazon locale",
-			EnvVar: "AMAZON_LOCALE",
+			EnvVar: "AMAZON_CLI_LOCALE",
 		},
 		cli.BoolFlag{
 			Name: "no-color",
