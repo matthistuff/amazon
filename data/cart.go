@@ -1,14 +1,6 @@
 package data
 
-type CartGetResponse struct {
-	Cart Cart
-}
-
-type CartCreateResponse struct {
-	Cart Cart
-}
-
-type CartAddResponse struct {
+type CartResponse struct {
 	Cart Cart
 }
 

@@ -38,8 +38,8 @@ func (a API) checkSanity(request data.Request) {
 	}
 }
 
-func (a API) ItemLookup(ASIN string) (data.ItemLookupResponse, error) {
-	var lookupResult data.ItemLookupResponse
+func (a API) ItemLookup(ASIN string) (data.ItemResponse, error) {
+	var lookupResult data.ItemResponse
 
 	response, err := a.ProductAPI.ItemLookup(ASIN)
 	if err != nil {
@@ -73,8 +73,8 @@ func (a API) ItemSearch(SearchIndex string, Parameters map[string]string) (data.
 	return searchResult, nil
 }
 
-func (a API) CartGet(CartId, HMAC string) (data.CartGetResponse, error) {
-	var cartGetResult data.CartGetResponse
+func (a API) CartGet(CartId, HMAC string) (data.CartResponse, error) {
+	var cartGetResult data.CartResponse
 
 	response, err := a.ProductAPI.CartGet(CartId, HMAC)
 
@@ -91,8 +91,8 @@ func (a API) CartGet(CartId, HMAC string) (data.CartGetResponse, error) {
 	return cartGetResult, nil
 }
 
-func (a API) CartCreate(Items map[string]int) (data.CartCreateResponse, error) {
-	var cartCreateResult data.CartCreateResponse
+func (a API) CartCreate(Items map[string]int) (data.CartResponse, error) {
+	var cartCreateResult data.CartResponse
 
 	response, err := a.ProductAPI.CartCreate(Items)
 
@@ -109,8 +109,8 @@ func (a API) CartCreate(Items map[string]int) (data.CartCreateResponse, error) {
 	return cartCreateResult, nil
 }
 
-func (a API) CartAdd(CartId, HMAC string, Items map[string]int) (data.CartAddResponse, error) {
-	var cartAddResult data.CartAddResponse
+func (a API) CartAdd(CartId, HMAC string, Items map[string]int) (data.CartResponse, error) {
+	var cartAddResult data.CartResponse
 
 	response, err := a.ProductAPI.CartAdd(Items, CartId, HMAC)
 

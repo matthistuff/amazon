@@ -1,9 +1,17 @@
 package data
 
-type Price struct {
-	Amount         int
-	CurrencyCode   string
-	FormattedPrice string
+type ItemResponse struct {
+	Items ItemResponseBody
+}
+
+type ItemResponseBody struct {
+	Request  Request
+	ItemList []Item `xml:"Item"`
+}
+
+type Request struct {
+	IsValid bool
+	Errors  Errors
 }
 
 type Errors struct {
@@ -13,9 +21,4 @@ type Errors struct {
 type Error struct {
 	Code    string
 	Message string
-}
-
-type Request struct {
-	IsValid bool
-	Errors  Errors
 }

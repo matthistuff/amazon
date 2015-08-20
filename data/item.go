@@ -1,5 +1,11 @@
 package data
 
+type Price struct {
+	Amount         int
+	CurrencyCode   string
+	FormattedPrice string
+}
+
 type Item struct {
 	ASIN             string
 

@@ -1,19 +1,12 @@
 package data
 
 type ItemSearchResponse struct {
-	Items SearchItems
+	Items ItemSearchBody
 }
 
-type SearchItems struct {
+type ItemSearchBody struct {
 	Request      Request
 	TotalResults int
 	TotalPages   int
 	ItemList     []Item `xml:"Item"`
-}
-
-type ItemSearchRequest struct {
-	ItemPage          int
-	Keywords          string
-	ResponseGroupList []string `xml:"ResponseGroup"`
-	SearchIndex       string
 }

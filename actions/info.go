@@ -26,7 +26,7 @@ func Info(c *cli.Context) {
 		return
 	}
 
-	var lookupResult data.ItemLookupResponse
+	var lookupResult data.ItemResponse
 	if err := xml.Unmarshal([]byte(result), &lookupResult); err != nil {
 		panic(err)
 		return
