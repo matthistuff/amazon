@@ -65,6 +65,11 @@ func main() {
 					Action: actions.CartAdd,
 				},
 				{
+					Name: "update",
+					Usage: "update item in cart",
+					Action: actions.CartUpdate,
+				},
+				{
 					Name: "remove",
 					Usage: "remove item from cart",
 					Action: actions.CartRemove,

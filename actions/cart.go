@@ -92,6 +92,45 @@ func CartRemove(c *cli.Context) {
 	fmt.Printf("Removed item from cart %s\n", cartName)
 }
 
+func CartUpdate(c *cli.Context) {
+	api := api.Create(c.GlobalString("locale"))
+
+	conf := config.GetConfig()
+	defer conf.Flush()
+
+	cartName := conf.CartNameFromCache(c.Args().Get(2))
+	cart, exists := conf.Carts[cartName]
+	if !exists {
+		fmt.Fprintln(os.Stderr, "Cannot look up Cart")
+		os.Exit(1)
+	}
+
+	cartItemId, exists := conf.CartItemIdFromCache(cartName, c.Args().First())
+	if !exists {
+		fmt.Fprintln(os.Stderr, "Cannot look up CartItemId")
+		os.Exit(1)
+	}
+
+	cartItemQuantity, err := strconv.Atoi(c.Args().Get(1))
+	if err != nil {
+		panic(err)
+		return
+	}
+
+	response, err := api.CartModify(cart.CartId, cart.HMAC, map[string]int{
+		cartItemId: cartItemQuantity,
+	})
+
+	if err != nil {
+		panic(err)
+		return
+	}
+
+	conf.Carts[cartName].HMAC = response.Cart.HMAC
+
+	fmt.Printf("Updated item in cart %s\n", cartName)
+}
+
 func CartInfo(c *cli.Context) {
 	color.Allow(c)
 
