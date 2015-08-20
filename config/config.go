@@ -7,6 +7,8 @@ import (
 	"github.com/BurntSushi/toml"
 	"github.com/matthistuff/amazon/helper"
 	"time"
+	"fmt"
+	"strings"
 )
 
 type Config struct {
@@ -64,6 +66,14 @@ func (c Config) ASINFromCache(cache string, item string) (string, bool) {
 	}
 
 	return c.FromCache(cache, item)
+}
+
+func (c Config) CartItemIdFromCache(cartName string, item string) (string, bool) {
+	if helper.IsCartItemId(item) {
+		return item, true
+	}
+
+	return c.FromCache(fmt.Sprintf("Cart%sItems", strings.Title(cartName)), item)
 }
 
 func (c Config) NumericFromCache(cache string, index string) string {

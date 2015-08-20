@@ -127,6 +127,24 @@ func (a API) CartAdd(CartId, HMAC string, Items map[string]int) (data.CartRespon
 	return cartAddResult, nil
 }
 
+func (a API) CartModify(CartId, HMAC string, CartItems map[string]int) (data.CartResponse, error) {
+	var cartModifyResult data.CartResponse
+
+	response, err := a.ProductAPI.CartModify(CartItems, CartId, HMAC)
+
+	if err != nil {
+		return cartModifyResult, err
+	}
+
+	if err := xml.Unmarshal([]byte(response), &cartModifyResult); err != nil {
+		return cartModifyResult, err
+	}
+
+	a.checkSanity(cartModifyResult.Cart.Request)
+
+	return cartModifyResult, nil
+}
+
 func Create(locale string) API {
 	conf := config.GetConfig()
 
