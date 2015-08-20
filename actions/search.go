@@ -8,6 +8,7 @@ import (
 	"strconv"
 	"github.com/matthistuff/amazon/config"
 	"github.com/matthistuff/amazon/color"
+	"math"
 )
 
 func Search(c *cli.Context) {
@@ -32,7 +33,7 @@ func Search(c *cli.Context) {
 		return
 	}
 
-	fmt.Printf("---\nFound %d results matching query %s\n---\n", result.Items.TotalResults, color.Header("'%s'", search))
+	fmt.Printf("\nFound %d results matching query %s\n\n", result.Items.TotalResults, color.Header("'%s'", search))
 
 	cache := make(map[string]string)
 	for index, item := range result.Items.ItemList {
@@ -52,18 +53,21 @@ func Search(c *cli.Context) {
 		if year == "" {
 			year = item.ItemAttributes.ReleaseDate
 		}
-
+		if year != "" {
+			year = fmt.Sprintf(" (%4.4s)", year)
+		}
 
 		normalizedIndex := index + 1
 		cache[strconv.Itoa(normalizedIndex)] = item.ASIN
-		fmt.Printf("(%s) %-45.45s (%4s) %18s [%s]\n",
+
+		maxLen := math.Min(float64(52 - len(year)), float64(len(item.ItemAttributes.Title)))
+		fmt.Printf("(%s) %-52s %s [%s]\n",
 			color.ShortId("%2d", normalizedIndex),
-			item.ItemAttributes.Title,
-			year[0:4],
-			color.Bold(price),
+			fmt.Sprintf("%s%s", item.ItemAttributes.Title[:int(maxLen)], year),
+			color.Bold("%9s", price),
 			item.ItemAttributes.Binding)
 	}
 	conf.ResultCache["Products"] = cache
 
-	fmt.Printf("---\nPage %d of %d\n---\n", page, result.Items.TotalPages)
+	fmt.Printf("\nPage %d of %d\n\n", page, result.Items.TotalPages)
 }
