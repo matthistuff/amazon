@@ -16,6 +16,8 @@ func Search(c *cli.Context) {
 
 	search := strings.Replace(strings.Join(c.Args(), "+"), " ", "+", -1)
 	page := c.Int("page")
+	sort := c.String("sort")
+	searchIndex := c.String("index")
 	api := api.Create(c.GlobalString("locale"))
 
 	conf := config.GetConfig()
@@ -26,7 +28,10 @@ func Search(c *cli.Context) {
 		"ResponseGroup": "ItemAttributes,Small,EditorialReview,OfferSummary,BrowseNodes",
 		"ItemPage":      strconv.FormatInt(int64(page), 10),
 	}
-	result, err := api.ItemSearch("All", params)
+	if sort != "" {
+		params["Sort"] = sort
+	}
+	result, err := api.ItemSearch(searchIndex, params)
 
 	if err != nil {
 		panic(err)

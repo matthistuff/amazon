@@ -43,6 +43,16 @@ func main() {
 					Value: 1,
 					Usage: "search results page",
 				},
+				cli.StringFlag{
+					Name: "sort, s",
+					Value: "",
+					Usage: "sort order",
+				},
+				cli.StringFlag{
+					Name: "index, i",
+					Value: "All",
+					Usage: "search index",
+				},
 			},
 		},
 		{
