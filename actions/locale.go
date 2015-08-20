@@ -7,9 +7,17 @@ import (
 	"github.com/matthistuff/amazon/config"
 )
 
-func LocaleList(c *cli.Context) {
+func LocalesList(c *cli.Context) {
 	for _, locale := range api.GetLocales() {
 		fmt.Println(locale)
+	}
+}
+
+func Locale(c *cli.Context) {
+	if len(c.Args()) > 0 {
+		LocaleSet(c)
+	} else {
+		LocaleGet(c)
 	}
 }
 

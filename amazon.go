@@ -115,23 +115,12 @@ func main() {
 		{
 			Name: "locale",
 			Usage: "manage locale",
-			Subcommands: []cli.Command{
-				{
-					Name: "list",
-					Usage: "list all available locales",
-					Action: actions.LocaleList,
-				},
-				{
-					Name: "set",
-					Usage: "set locale",
-					Action: actions.LocaleSet,
-				},
-				{
-					Name: "get",
-					Usage: "get current locale",
-					Action: actions.LocaleGet,
-				},
-			},
+			Action: actions.Locale,
+		},
+		{
+			Name: "locales",
+			Usage: "list available locales",
+			Action: actions.LocalesList,
 		},
 	}
 
