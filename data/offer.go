@@ -18,8 +18,13 @@ type Offers struct {
 }
 
 type Offer struct {
+	Merchant        Merchant
 	OfferAttributes OfferAttributes
 	OfferListing    OfferListing
+}
+
+type Merchant struct {
+	Name string
 }
 
 type OfferAttributes struct {
