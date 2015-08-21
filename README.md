@@ -11,3 +11,5 @@ If you have Go installed already
 ```
 go get github.com/matthistuff/amazon
 ```
+
+(Mac) OS X >= 10.7 users can get binaries from the [releases page](https://github.com/matthistuff/amazon/releases). Currently I can not test other platforms, feel welcome to help!
