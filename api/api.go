@@ -39,10 +39,10 @@ func (a API) checkSanity(request data.Request) {
 	}
 }
 
-func (a API) ItemLookup(ASIN string) (data.ItemResponse, error) {
+func (a API) ItemLookup(ASIN string, ResponseGroup string) (data.ItemResponse, error) {
 	var lookupResult data.ItemResponse
 
-	response, err := a.ProductAPI.ItemLookup(ASIN)
+	response, err := a.ProductAPI.ItemLookupWithResponseGroup(ASIN, ResponseGroup)
 	if err != nil {
 		return lookupResult, err
 	}

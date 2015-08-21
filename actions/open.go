@@ -19,7 +19,7 @@ func Open(c *cli.Context) {
 		os.Exit(1)
 	}
 
-	result, err := api.ItemLookup(asin)
+	result, err := api.ItemLookup(asin, "Small")
 
 	if err != nil {
 		panic(err)
