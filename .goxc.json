@@ -1,0 +1,16 @@
+{
+	"ArtifactsDest": "./_release",
+	"Tasks": [
+		"default",
+		"publish-github"
+	],
+	"BuildConstraints": "darwin,amd64",
+	"PackageVersion": "0.1.0",
+	"TaskSettings": {
+		"publish-github": {
+			"owner": "matthistuff",
+			"repository": "amazon"
+		}
+	},
+	"ConfigVersion": "0.9"
+}

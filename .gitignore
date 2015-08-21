@@ -10,6 +10,7 @@
 # Folders
 _obj
 _test
+_release
 
 # Architecture specific extensions/prefixes
 *.[568vq]
@@ -26,3 +27,6 @@ _testmain.go
 *.exe
 *.test
 *.prof
+
+# Build tools
+.goxc.local.json
