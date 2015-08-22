@@ -1,13 +1,13 @@
 package api
 
 import (
-	"github.com/matthistuff/go-amazon-product-api"
-	"os"
-	"github.com/matthistuff/amazon/config"
-	"strings"
-	"github.com/matthistuff/amazon/data"
 	"encoding/xml"
 	"fmt"
+	"github.com/matthistuff/amazon/config"
+	"github.com/matthistuff/amazon/data"
+	"github.com/matthistuff/go-amazon-product-api"
+	"os"
+	"strings"
 )
 
 var hosts = map[string]string{
@@ -155,9 +155,9 @@ func Create(locale string) API {
 
 	return API{
 		ProductAPI: &amazonproduct.AmazonProductAPI{
-			AccessKey: os.Getenv("AMAZON_ACCESS_KEY"),
-			SecretKey: os.Getenv("AMAZON_SECRET_KEY"),
-			Host: hosts[strings.ToUpper(locale)],
+			AccessKey:    os.Getenv("AMAZON_ACCESS_KEY"),
+			SecretKey:    os.Getenv("AMAZON_SECRET_KEY"),
+			Host:         hosts[strings.ToUpper(locale)],
 			AssociateTag: "matthi-20",
 		},
 		Locale: locale,

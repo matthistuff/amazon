@@ -1,12 +1,12 @@
 package actions
 
 import (
-	"github.com/codegangsta/cli"
 	"fmt"
-	"github.com/matthistuff/amazon/config"
-	"strconv"
-	"os"
+	"github.com/codegangsta/cli"
 	"github.com/matthistuff/amazon/color"
+	"github.com/matthistuff/amazon/config"
+	"os"
+	"strconv"
 )
 
 func CartsDestroy(c *cli.Context) {

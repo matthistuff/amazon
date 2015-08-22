@@ -1,10 +1,10 @@
 package main
 
 import (
-	"os"
 	"github.com/codegangsta/cli"
 	"github.com/matthistuff/amazon/actions"
 	"github.com/matthistuff/amazon/config"
+	"os"
 )
 
 func init() {
@@ -22,109 +22,109 @@ func main() {
 
 	app.Flags = []cli.Flag{
 		cli.StringFlag{
-			Name: "locale, l",
-			Value: "",
-			Usage: "Amazon locale",
+			Name:   "locale, l",
+			Value:  "",
+			Usage:  "Amazon locale",
 			EnvVar: "AMAZON_CLI_LOCALE",
 		},
 		cli.BoolFlag{
-			Name: "no-color",
+			Name:  "no-color",
 			Usage: "disable colored output",
 		},
 	}
 
 	app.Commands = []cli.Command{
 		{
-			Name: "search",
-			Usage: "search for products",
+			Name:   "search",
+			Usage:  "search for products",
 			Action: actions.Search,
 			Flags: []cli.Flag{
 				cli.IntFlag{
-					Name: "page, p",
+					Name:  "page, p",
 					Value: 1,
 					Usage: "search results page",
 				},
 				cli.StringFlag{
-					Name: "sort, s",
+					Name:  "sort, s",
 					Value: "",
 					Usage: "sort order",
 				},
 				cli.StringFlag{
-					Name: "index, i",
+					Name:  "index, i",
 					Value: "All",
 					Usage: "search index",
 				},
 				cli.BoolFlag{
-					Name: "no-rating",
+					Name:  "no-rating",
 					Usage: "disable fetching product ratings",
 				},
 			},
 		},
 		{
-			Name: "info",
-			Usage: "get product info",
+			Name:   "info",
+			Usage:  "get product info",
 			Action: actions.Info,
 		},
 		{
-			Name: "open",
-			Usage: "open product in browser",
+			Name:   "open",
+			Usage:  "open product in browser",
 			Action: actions.Open,
 		},
 		{
-			Name: "cart",
+			Name:  "cart",
 			Usage: "manage a cart",
 			Subcommands: []cli.Command{
 				{
-					Name: "add",
-					Usage: "add item to cart",
+					Name:   "add",
+					Usage:  "add item to cart",
 					Action: actions.CartAdd,
 				},
 				{
-					Name: "update",
-					Usage: "update item in cart",
+					Name:   "update",
+					Usage:  "update item in cart",
 					Action: actions.CartUpdate,
 				},
 				{
-					Name: "remove",
-					Usage: "remove item from cart",
+					Name:   "remove",
+					Usage:  "remove item from cart",
 					Action: actions.CartRemove,
 				},
 				{
-					Name: "info",
-					Usage: "list cart items",
+					Name:   "info",
+					Usage:  "list cart items",
 					Action: actions.CartInfo,
 				},
 			},
 		},
 		{
-			Name: "carts",
+			Name:  "carts",
 			Usage: "manage carts",
 			Subcommands: []cli.Command{
 				{
-					Name: "list",
-					Usage: "list all active varts",
+					Name:   "list",
+					Usage:  "list all active varts",
 					Action: actions.CartsList,
 				},
 				{
-					Name: "destroy",
-					Usage: "delete a cart",
+					Name:   "destroy",
+					Usage:  "delete a cart",
 					Action: actions.CartsDestroy,
 				},
 			},
 		},
 		{
-			Name: "checkout",
-			Usage: "proceed to checkout",
+			Name:   "checkout",
+			Usage:  "proceed to checkout",
 			Action: actions.Checkout,
 		},
 		{
-			Name: "locale",
-			Usage: "manage locale",
+			Name:   "locale",
+			Usage:  "manage locale",
 			Action: actions.Locale,
 		},
 		{
-			Name: "locales",
-			Usage: "list available locales",
+			Name:   "locales",
+			Usage:  "list available locales",
 			Action: actions.LocalesList,
 		},
 	}

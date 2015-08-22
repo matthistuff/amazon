@@ -1,15 +1,15 @@
 package actions
 
 import (
-	"github.com/codegangsta/cli"
-	"github.com/matthistuff/amazon/config"
-	"time"
-	"github.com/matthistuff/amazon/api"
 	"fmt"
+	"github.com/codegangsta/cli"
+	"github.com/matthistuff/amazon/api"
+	"github.com/matthistuff/amazon/color"
+	"github.com/matthistuff/amazon/config"
 	"os"
 	"strconv"
 	"strings"
-	"github.com/matthistuff/amazon/color"
+	"time"
 )
 
 func CartAdd(c *cli.Context) {
@@ -37,10 +37,10 @@ func CartAdd(c *cli.Context) {
 		}
 
 		conf.Carts[cartName] = &config.Cart{
-			Name: cartName,
+			Name:    cartName,
 			Created: time.Now(),
-			CartId: createResponse.Cart.CartId,
-			HMAC: createResponse.Cart.HMAC,
+			CartId:  createResponse.Cart.CartId,
+			HMAC:    createResponse.Cart.HMAC,
 		}
 	} else {
 		addResponse, addErr := api.CartAdd(cart.CartId, cart.HMAC, map[string]int{
@@ -166,7 +166,7 @@ func CartInfo(c *cli.Context) {
 			cache[strconv.Itoa(index)] = item.CartItemId
 			index += 1
 		}
-		conf.ResultCache["Cart" + strings.Title(cartName) + "Items"] = cache
+		conf.ResultCache["Cart"+strings.Title(cartName)+"Items"] = cache
 
 		if len(getResponse.Cart.CartItems.CartItemList) == 0 {
 			fmt.Println("Cart is empty")

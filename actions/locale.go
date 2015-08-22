@@ -1,9 +1,9 @@
 package actions
 
 import (
+	"fmt"
 	"github.com/codegangsta/cli"
 	"github.com/matthistuff/amazon/api"
-	"fmt"
 	"github.com/matthistuff/amazon/config"
 )
 

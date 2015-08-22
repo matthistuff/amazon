@@ -3,13 +3,13 @@ package actions
 import (
 	"fmt"
 	"github.com/codegangsta/cli"
-	"strings"
 	"github.com/matthistuff/amazon/api"
-	"strconv"
-	"github.com/matthistuff/amazon/config"
 	"github.com/matthistuff/amazon/color"
-	"math"
+	"github.com/matthistuff/amazon/config"
 	"github.com/matthistuff/amazon/helper"
+	"math"
+	"strconv"
+	"strings"
 )
 
 func Search(c *cli.Context) {
@@ -77,7 +77,7 @@ func Search(c *cli.Context) {
 		normalizedIndex := index + 1
 		cache[strconv.Itoa(normalizedIndex)] = item.ASIN
 
-		maxLen := math.Min(float64(52 - len(year)), float64(len(item.ItemAttributes.Title)))
+		maxLen := math.Min(float64(52-len(year)), float64(len(item.ItemAttributes.Title)))
 		fmt.Printf("(%s) %-52s %s%s [%s]\n",
 			color.ShortId("%2d", normalizedIndex),
 			fmt.Sprintf("%s%s", item.ItemAttributes.Title[:int(maxLen)], year),

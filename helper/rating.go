@@ -1,8 +1,9 @@
 package helper
+
 import (
 	"fmt"
-	"net/http"
 	"io/ioutil"
+	"net/http"
 	"regexp"
 	"strconv"
 	"strings"

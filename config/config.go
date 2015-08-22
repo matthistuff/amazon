@@ -1,14 +1,14 @@
 package config
 
 import (
-	"github.com/mitchellh/go-homedir"
-	"path"
-	"os"
+	"fmt"
 	"github.com/BurntSushi/toml"
 	"github.com/matthistuff/amazon/helper"
-	"time"
-	"fmt"
+	"github.com/mitchellh/go-homedir"
+	"os"
+	"path"
 	"strings"
+	"time"
 )
 
 type Config struct {
@@ -90,7 +90,7 @@ func (c Config) NumericFromCache(cache string, index string) string {
 
 var (
 	confPath string
-	conf *Config
+	conf     *Config
 )
 
 func LoadConfig() error {
@@ -117,10 +117,10 @@ func ensureConfig() error {
 
 		if _, err := os.Stat(confPath); os.IsNotExist(err) {
 			conf = &Config{
-				Version: "0.1.0",
-				Locale: "US",
+				Version:     "0.1.0",
+				Locale:      "US",
 				ResultCache: make(map[string]map[string]string),
-				Carts: make(map[string]*Cart),
+				Carts:       make(map[string]*Cart),
 			}
 
 			conf.Flush()

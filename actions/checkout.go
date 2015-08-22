@@ -1,10 +1,11 @@
 package actions
+
 import (
+	"fmt"
 	"github.com/codegangsta/cli"
 	"github.com/matthistuff/amazon/api"
 	"github.com/matthistuff/amazon/config"
 	"github.com/pkg/browser"
-	"fmt"
 	"os"
 )
 

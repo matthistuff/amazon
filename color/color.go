@@ -1,14 +1,14 @@
 package color
 
 import (
-	"github.com/fatih/color"
 	"github.com/codegangsta/cli"
+	"github.com/fatih/color"
 )
 
 var (
-	Bold = color.New(color.Bold).SprintfFunc()
-	Faint = color.New(color.Faint).SprintfFunc()
-	Header = color.New(color.FgRed, color.Bold).SprintfFunc()
+	Bold    = color.New(color.Bold).SprintfFunc()
+	Faint   = color.New(color.Faint).SprintfFunc()
+	Header  = color.New(color.FgRed, color.Bold).SprintfFunc()
 	ShortId = color.New(color.FgBlue).SprintfFunc()
 )
 

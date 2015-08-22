@@ -7,7 +7,7 @@ type Price struct {
 }
 
 type Item struct {
-	ASIN             string
+	ASIN string
 
 	BrowseNodes      BrowseNodes
 	DetailPageURL    string

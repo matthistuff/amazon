@@ -1,13 +1,13 @@
 package actions
 
 import (
-	"github.com/codegangsta/cli"
-	"github.com/matthistuff/amazon/config"
-	"github.com/matthistuff/amazon/api"
 	"fmt"
-	"os"
+	"github.com/codegangsta/cli"
+	"github.com/matthistuff/amazon/api"
 	"github.com/matthistuff/amazon/color"
+	"github.com/matthistuff/amazon/config"
 	"github.com/matthistuff/amazon/helper"
+	"os"
 	"strings"
 )
 
