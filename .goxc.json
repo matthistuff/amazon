@@ -4,7 +4,7 @@
 		"default",
 		"publish-github"
 	],
-	"BuildConstraints": "darwin,amd64",
+	"BuildConstraints": "linux,!arm darwin,amd64",
 	"PackageVersion": "0.1.0",
 	"TaskSettings": {
 		"publish-github": {
