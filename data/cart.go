@@ -1,12 +1,14 @@
 package data
 
+// CartResponse returned from a cart request
 type CartResponse struct {
 	Cart Cart
 }
 
+// The Cart of the CartResponse
 type Cart struct {
 	Request        Request
-	CartId         string
+	CartID         string `xml:"CartId"`
 	HMAC           string
 	URLEncodedHMAC string
 	PurchaseURL    string
@@ -14,13 +16,15 @@ type Cart struct {
 	CartItems      CartItems
 }
 
+// CartItems of a Cart
 type CartItems struct {
 	SubTotal     Price
 	CartItemList []CartItem `xml:"CartItem"`
 }
 
+// CartItem in CartItems
 type CartItem struct {
-	CartItemId   string
+	CartItemID   string `xml:"CartItemId"`
 	ASIN         string
 	Quantity     int
 	Title        string

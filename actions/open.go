@@ -9,6 +9,7 @@ import (
 	"os"
 )
 
+// Open opens a product on the amazon website
 func Open(c *cli.Context) {
 	api := api.Create(c.GlobalString("locale"))
 
@@ -23,7 +24,6 @@ func Open(c *cli.Context) {
 
 	if err != nil {
 		panic(err)
-		return
 	}
 
 	browser.OpenURL(result.Items.ItemList[0].DetailPageURL)

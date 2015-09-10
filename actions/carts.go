@@ -9,6 +9,7 @@ import (
 	"strconv"
 )
 
+// CartsDestroy deletes a cart
 func CartsDestroy(c *cli.Context) {
 	conf := config.GetConfig()
 	defer conf.Flush()
@@ -25,6 +26,7 @@ func CartsDestroy(c *cli.Context) {
 	}
 }
 
+// CartsList lists all active carts
 func CartsList(c *cli.Context) {
 	color.Allow(c)
 
@@ -34,9 +36,9 @@ func CartsList(c *cli.Context) {
 	index := 1
 	cache := make(map[string]string)
 	for _, cart := range conf.Carts {
-		fmt.Printf("(%s) %s\n", color.ShortId(strconv.Itoa(index)), cart.Name)
+		fmt.Printf("(%s) %s\n", color.ShortID(strconv.Itoa(index)), cart.Name)
 		cache[strconv.Itoa(index)] = cart.Name
-		index += 1
+		index++
 	}
 	conf.ResultCache["Carts"] = cache
 }

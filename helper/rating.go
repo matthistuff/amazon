@@ -25,6 +25,7 @@ var amazons = map[string]string{
 	"US": "amazon.com",
 }
 
+// Rating returns the rating for a asin in a specific locale
 func Rating(asin string, locale string) (float64, error) {
 	url := fmt.Sprintf(
 		"https://www.%s/gp/customer-reviews/widgets/average-customer-review/popover/ref=dpx_acr_pop_?contextId=dpx&asin=%s",
@@ -51,6 +52,7 @@ func Rating(asin string, locale string) (float64, error) {
 	return i, nil
 }
 
+// FormatRating formats a numeric rating to a string
 func FormatRating(rating float64) string {
 	base := int(rating)
 	fraction := rating - float64(base)

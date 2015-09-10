@@ -12,6 +12,7 @@ import (
 	"strings"
 )
 
+// Search does a product search
 func Search(c *cli.Context) {
 	color.Allow(c)
 
@@ -36,7 +37,6 @@ func Search(c *cli.Context) {
 
 	if err != nil {
 		panic(err)
-		return
 	}
 
 	fmt.Printf("\nFound %d results matching query %s\n\n", result.Items.TotalResults, color.Header("'%s'", search))
@@ -68,7 +68,6 @@ func Search(c *cli.Context) {
 			rating, err := helper.Rating(item.ASIN, api.Locale)
 			if err != nil {
 				panic(err)
-				return
 			}
 
 			ratingFormatted = fmt.Sprintf("%-5s ", helper.FormatRating(rating))
@@ -79,7 +78,7 @@ func Search(c *cli.Context) {
 
 		maxLen := math.Min(float64(52-len(year)), float64(len(item.ItemAttributes.Title)))
 		fmt.Printf("(%s) %-52s %s%s [%s]\n",
-			color.ShortId("%2d", normalizedIndex),
+			color.ShortID("%2d", normalizedIndex),
 			fmt.Sprintf("%s%s", item.ItemAttributes.Title[:int(maxLen)], year),
 			color.Faint(ratingFormatted),
 			color.Bold("%9s", price),

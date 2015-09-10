@@ -1,3 +1,4 @@
+// Package api wraps the go-amazon-product-api package
 package api
 
 import (
@@ -24,6 +25,7 @@ var hosts = map[string]string{
 	"US": "webservices.amazon.com",
 }
 
+// API is the container for API calls
 type API struct {
 	ProductAPI *amazonproduct.AmazonProductAPI
 	Locale     string
@@ -39,6 +41,7 @@ func (a API) checkSanity(request data.Request) {
 	}
 }
 
+// ItemLookup does a product lookup
 func (a API) ItemLookup(ASIN string, ResponseGroup string) (data.ItemResponse, error) {
 	var lookupResult data.ItemResponse
 
@@ -56,6 +59,7 @@ func (a API) ItemLookup(ASIN string, ResponseGroup string) (data.ItemResponse, e
 	return lookupResult, nil
 }
 
+// ItemSearch does a product search
 func (a API) ItemSearch(SearchIndex string, Parameters map[string]string) (data.ItemSearchResponse, error) {
 	var searchResult data.ItemSearchResponse
 
@@ -74,10 +78,11 @@ func (a API) ItemSearch(SearchIndex string, Parameters map[string]string) (data.
 	return searchResult, nil
 }
 
-func (a API) CartGet(CartId, HMAC string) (data.CartResponse, error) {
+// CartGet retrieves a cart
+func (a API) CartGet(CartID, HMAC string) (data.CartResponse, error) {
 	var cartGetResult data.CartResponse
 
-	response, err := a.ProductAPI.CartGet(CartId, HMAC)
+	response, err := a.ProductAPI.CartGet(CartID, HMAC)
 
 	if err != nil {
 		return cartGetResult, err
@@ -92,6 +97,7 @@ func (a API) CartGet(CartId, HMAC string) (data.CartResponse, error) {
 	return cartGetResult, nil
 }
 
+// CartCreate creates a new cart
 func (a API) CartCreate(Items map[string]int) (data.CartResponse, error) {
 	var cartCreateResult data.CartResponse
 
@@ -110,10 +116,11 @@ func (a API) CartCreate(Items map[string]int) (data.CartResponse, error) {
 	return cartCreateResult, nil
 }
 
-func (a API) CartAdd(CartId, HMAC string, Items map[string]int) (data.CartResponse, error) {
+// CartAdd adds an item to the cart
+func (a API) CartAdd(CartID, HMAC string, Items map[string]int) (data.CartResponse, error) {
 	var cartAddResult data.CartResponse
 
-	response, err := a.ProductAPI.CartAdd(Items, CartId, HMAC)
+	response, err := a.ProductAPI.CartAdd(Items, CartID, HMAC)
 
 	if err != nil {
 		return cartAddResult, err
@@ -128,10 +135,11 @@ func (a API) CartAdd(CartId, HMAC string, Items map[string]int) (data.CartRespon
 	return cartAddResult, nil
 }
 
-func (a API) CartModify(CartId, HMAC string, CartItems map[string]int) (data.CartResponse, error) {
+// CartModify updates a cart
+func (a API) CartModify(CartID, HMAC string, CartItems map[string]int) (data.CartResponse, error) {
 	var cartModifyResult data.CartResponse
 
-	response, err := a.ProductAPI.CartModify(CartItems, CartId, HMAC)
+	response, err := a.ProductAPI.CartModify(CartItems, CartID, HMAC)
 
 	if err != nil {
 		return cartModifyResult, err
@@ -146,6 +154,7 @@ func (a API) CartModify(CartId, HMAC string, CartItems map[string]int) (data.Car
 	return cartModifyResult, nil
 }
 
+// Create is the API factory
 func Create(locale string) API {
 	conf := config.GetConfig()
 
@@ -164,13 +173,14 @@ func Create(locale string) API {
 	}
 }
 
+// GetLocales returns all available locales
 func GetLocales() []string {
 	locales := make([]string, len(hosts))
 
 	i := 0
 	for locale := range hosts {
 		locales[i] = locale
-		i += 1
+		i++
 	}
 
 	return locales

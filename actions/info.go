@@ -11,6 +11,7 @@ import (
 	"strings"
 )
 
+// Info prints information about a product
 func Info(c *cli.Context) {
 	color.Allow(c)
 
@@ -26,14 +27,12 @@ func Info(c *cli.Context) {
 	result, err := api.ItemLookup(asin, "ItemAttributes,Small,OfferFull,EditorialReview")
 	if err != nil {
 		panic(err)
-		return
 	}
 
 	item := result.Items.ItemList[0]
 	rating, err := helper.Rating(item.ASIN, api.Locale)
 	if err != nil {
 		panic(err)
-		return
 	}
 
 	year := item.ItemAttributes.PublicationDate

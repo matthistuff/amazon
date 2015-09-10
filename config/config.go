@@ -11,6 +11,7 @@ import (
 	"time"
 )
 
+// Config is the top level config structure
 type Config struct {
 	Version     string
 	Locale      string
@@ -18,13 +19,15 @@ type Config struct {
 	Carts       map[string]*Cart
 }
 
+// Cart represents an active vart in the config
 type Cart struct {
 	Name    string
 	Created time.Time
-	CartId  string
+	CartID  string
 	HMAC    string
 }
 
+// Flush writes the config to disk
 func (c *Config) Flush() {
 	file, _ := os.Create(confPath)
 	encoder := toml.NewEncoder(file)
@@ -34,6 +37,7 @@ func (c *Config) Flush() {
 	}
 }
 
+// FromCache returns a key from a named cache
 func (c Config) FromCache(cache string, key string) (string, bool) {
 	cached, exists := c.ResultCache[cache]
 
@@ -46,6 +50,7 @@ func (c Config) FromCache(cache string, key string) (string, bool) {
 	return cachedValue, exists
 }
 
+// CartNameFromCache returns a cart name from the cart cache
 func (c Config) CartNameFromCache(indexOrName string) string {
 	cached, exists := c.FromCache("Carts", indexOrName)
 
@@ -60,6 +65,7 @@ func (c Config) CartNameFromCache(indexOrName string) string {
 	return cached
 }
 
+// ASINFromCache returns a asin from a named cache
 func (c Config) ASINFromCache(cache string, item string) (string, bool) {
 	if helper.IsASIN(item) {
 		return item, true
@@ -68,14 +74,16 @@ func (c Config) ASINFromCache(cache string, item string) (string, bool) {
 	return c.FromCache(cache, item)
 }
 
-func (c Config) CartItemIdFromCache(cartName string, item string) (string, bool) {
-	if helper.IsCartItemId(item) {
+// CartItemIDFromCache returns a cart item ID from a named cart
+func (c Config) CartItemIDFromCache(cartName string, item string) (string, bool) {
+	if helper.IsCartItemID(item) {
 		return item, true
 	}
 
 	return c.FromCache(fmt.Sprintf("Cart%sItems", strings.Title(cartName)), item)
 }
 
+// NumericFromCache returns a numeric value from a named cache
 func (c Config) NumericFromCache(cache string, index string) string {
 	if helper.IsNumeric(index) {
 		value, exists := c.FromCache(cache, index)
@@ -93,6 +101,7 @@ var (
 	conf     *Config
 )
 
+// LoadConfig loads the config from the disk
 func LoadConfig() error {
 	err := ensureConfig()
 
@@ -130,6 +139,7 @@ func ensureConfig() error {
 	return err
 }
 
+// GetConfig returns the current config
 func GetConfig() *Config {
 	return conf
 }
