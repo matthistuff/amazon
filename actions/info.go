@@ -82,8 +82,7 @@ func Info(c *cli.Context) {
 	}
 
 	if len(item.EditorialReviews.EditorialReviewList) > 0 {
-		fmt.Printf("%s\n\t%s\n",
-			color.Header(strings.ToUpper(item.EditorialReviews.EditorialReviewList[0].Source)),
-			item.EditorialReviews.EditorialReviewList[0].Content)
+		fmt.Println(color.Header(strings.ToUpper(item.EditorialReviews.EditorialReviewList[0].Source)))
+		fmt.Println(helper.FormatText(item.EditorialReviews.EditorialReviewList[0].Content, 80, "\t"))
 	}
 }
