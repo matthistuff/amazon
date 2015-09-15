@@ -18,7 +18,7 @@ func main() {
 	app.EnableBashCompletion = true
 	app.Name = "amazon"
 	app.Usage = "the CLI interface to amazon"
-	app.Version = "0.1.1"
+	app.Version = "0.1.3"
 
 	app.Flags = []cli.Flag{
 		cli.StringFlag{

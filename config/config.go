@@ -126,7 +126,7 @@ func ensureConfig() error {
 
 		if _, err := os.Stat(confPath); os.IsNotExist(err) {
 			conf = &Config{
-				Version:     "0.1.1",
+				Version:     "0.1.3",
 				Locale:      "US",
 				ResultCache: make(map[string]map[string]string),
 				Carts:       make(map[string]*Cart),
